@@ -1,9 +1,12 @@
 ---
 Description: Static website stack for AWS Traineeship Slides
 Parameters:
+  DomainName:
+    Type: String
+    Description: Domain name for the slides
   HostedZoneId:
     Type: String
-    Description: HostedZoneId for robkenis.com
+    Description: HostedZoneId for zone that holds the DomainName for the slides
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
@@ -15,10 +18,10 @@ Resources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: slides.robkenis.com
+      DomainName: !Ref DomainName
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: slides.robkenis.com
+        - DomainName: !Ref DomainName
           HostedZoneId: !Ref HostedZoneId
   CloudFront:
     Type: AWS::CloudFront::Distribution
@@ -28,7 +31,7 @@ Resources:
         HttpVersion: http2
         PriceClass: PriceClass_100
         Aliases:
-          - slides.robkenis.com
+          - !Ref DomainName
         Comment: !Ref AWS::StackName
         ViewerCertificate:
           AcmCertificateArn: !Ref Certificate
