@@ -20,3 +20,26 @@ Resources:
       DomainValidationOptions:
         - DomainName: slides.robkenis.com
           HostedZoneId: !Ref HostedZoneId
+  CloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: True
+        HttpVersion: http2
+        PriceClass: PriceClass_100
+        Aliases:
+          - slides.robkenis.com
+        Comment: !Ref AWS::StackName
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+        Origins:
+          - Id: default
+            DomainName: !Join [ '', [ !Ref S3Bucket, '.s3-website-', !Ref AWS::Region, '.amazonaws.com' ] ]
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+        DefaultCacheBehavior:
+          TargetOriginId: default
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: False
