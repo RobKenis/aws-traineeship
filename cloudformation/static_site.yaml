@@ -1,0 +1,22 @@
+---
+Description: Static website stack for AWS Traineeship Slides
+Parameters:
+  HostedZoneId:
+    Type: String
+    Description: HostedZoneId for robkenis.com
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: slides.robkenis.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: slides.robkenis.com
+          HostedZoneId: !Ref HostedZoneId
