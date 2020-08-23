@@ -1,0 +1,18 @@
+<section>
+    <h3>Infrastructure as code</h3>
+
+    <a href="https://eu-west-1.console.aws.amazon.com/cloudformation">CloudFormation</a> - <a href="assets/snippets/ec2.yaml" target="_blank"><i class="fa fa-code"></i></a>
+    <pre><code data-trim data-noescape>
+Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: 'ami-0bbc25e23a7640b9b'
+      InstanceType: 't2.nano'
+      KeyName: !Ref KeyPair
+      SecurityGroupIds: [!Ref SecurityGroup]
+      Tags:
+        - Key: 'Name'
+          Value: !Ref InstanceName
+    </code></pre>
+
+</section>
