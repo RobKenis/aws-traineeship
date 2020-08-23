@@ -1,47 +1,52 @@
 <html>
-  <head>
+<head>
     <!-- build:css assets/main.css -->
-    <link rel="stylesheet" href="reveal.js/css/reveal.css" />
-    <link rel="stylesheet" href="reveal.js/css/theme/night.css" />
-    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+    <link rel="stylesheet" href="reveal.js/css/theme/night.css"/>
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <!-- endbuild -->
     <style>
-      code {
-        font-family: monospace !important;
-      }
-      code * {
-        font-family: monospace !important;
-      }
+        code {
+            font-family: monospace !important;
+        }
+
+        code * {
+            font-family: monospace !important;
+        }
+
+        .left {
+            text-align: left;
+        }
     </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
         @@include('./01-intro.html')
         @@include('./02-planning.html')
-      </div>
     </div>
-    <!-- build:js assets/main.js -->
-    <script src="headjs/dist/1.0.0/head.js"></script>
-    <script src="reveal.js/js/reveal.js"></script>
-    <script src="reveal.js/plugin/highlight/highlight.js"></script>
-    <!-- endbuild -->
-    <script>
-      Reveal.initialize({
+</div>
+<!-- build:js assets/main.js -->
+<script src="headjs/dist/1.0.0/head.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script src="reveal.js/plugin/highlight/highlight.js"></script>
+<!-- endbuild -->
+<script>
+    Reveal.initialize({
         dependencies: [
-          {
-            src: 'reveal.js/plugin/highlight/highlight.js',
-            async: true,
-            callback: function() {
-              hljs.initHighlightingOnLoad()
+            {
+                src: 'reveal.js/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad()
+                },
+                showSlideNumber: 'all',
+                transition: 'slide',
+                transitionSpeed: 'fast',
             },
-            showSlideNumber: 'all',
-            transition: 'slide',
-            transitionSpeed: 'fast',
-          },
         ],
-      })
-    </script>
-  </body>
+    })
+</script>
+</body>
 </html>
