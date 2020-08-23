@@ -46,6 +46,9 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
           ForwardedValues:
             QueryString: False
+          MinTTL: 60
+          DefaultTTL: 300
+          MaxTTL: 300
   DnsA:
     Type: AWS::Route53::RecordSetGroup
     Properties:
