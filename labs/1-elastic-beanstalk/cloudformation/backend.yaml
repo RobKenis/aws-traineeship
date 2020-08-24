@@ -13,3 +13,63 @@ Resources:
     Properties:
       ApplicationName: !Ref ApplicationName
       Description: !Join [ ' ', [ 'Created by', !Ref User ] ]
+  ServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: 'elasticbeanstalk.amazonaws.com'
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringEquals:
+                'sts:ExternalId': elasticbeanstalk
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService'
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref InstanceProfileRole
+  InstanceProfileRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'ec2.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Sid: BucketAccess
+                Action:
+                  - 's3:Get*'
+                  - 's3:List*'
+                  - 's3:PutObject'
+                Effect: Allow
+                Resource: '*'
+  DevEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref Application
+      Description: !Join [ ' ', [ 'Dev environment for', !Ref Application ] ]
+      EnvironmentName: !Join [ '-', [ !Ref Application, 'dev' ] ]
+      SolutionStackName: '64bit Amazon Linux 2018.03 v2.10.10 running Java 8'
+      OptionSettings:
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: IamInstanceProfile
+          Value: !Ref InstanceProfile
+        - Namespace: 'aws:elasticbeanstalk:environment'
+          OptionName: ServiceRole
+          Value: !Ref ServiceRole
