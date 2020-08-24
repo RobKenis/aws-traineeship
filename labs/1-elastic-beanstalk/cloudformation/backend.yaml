@@ -1,0 +1,15 @@
+---
+Description: Host a java application on beanstalk
+Parameters:
+  ApplicationName:
+    Description: Name of the application
+    Type: "String"
+  User:
+    Description: Name person creating this application
+    Type: "String"
+Resources:
+  Application:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: !Ref ApplicationName
+      Description: !Join [ ' ', [ 'Created by', !Ref User ] ]
