@@ -68,8 +68,14 @@ Resources:
       SolutionStackName: '64bit Amazon Linux 2018.03 v2.10.10 running Java 8'
       OptionSettings:
         - Namespace: 'aws:autoscaling:launchconfiguration'
-          OptionName: IamInstanceProfile
+          OptionName: 'IamInstanceProfile'
           Value: !Ref InstanceProfile
         - Namespace: 'aws:elasticbeanstalk:environment'
-          OptionName: ServiceRole
+          OptionName: 'ServiceRole'
           Value: !Ref ServiceRole
+        - Namespace: 'aws:elasticbeanstalk:environment:process:default'
+          OptionName: 'HealthCheckPath'
+          Value: '/actuator/health'
+        - Namespace: 'aws:elasticbeanstalk:healthreporting:system'
+          OptionName: 'SystemType'
+          Value: 'enhanced'
