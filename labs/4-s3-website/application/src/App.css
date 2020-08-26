@@ -40,12 +40,14 @@
 .album {
   padding: 1em 2em 1em 2em;
   margin: 1em;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
 .albums {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+}
+
+.images {
+
 }
