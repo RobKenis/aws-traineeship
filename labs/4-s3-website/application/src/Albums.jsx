@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import ImageUploader from "react-images-upload";
 
-const Album = ({id, name, images}) => (<div key={id} className={"album"}>
+const Album = ({id, name, images, refresh}) => (<div key={id} className={"album"}>
     <h2>{name}</h2>
     <div className={"images"}>
         {images.map((img, index) => (
@@ -22,7 +22,7 @@ export const Albums = () => {
         getAlbums();
     }, [])
     return (<div className={"albums"}>{albums.map(album => (
-        <Album key={album.id} id={album.id} name={album.name} images={album.images}/>))}</div>);
+        <Album key={album.id} id={album.id} name={album.name} images={album.images} />))}</div>);
 }
 
 const UploadImage = ({albumId}, props) => {
@@ -32,6 +32,7 @@ const UploadImage = ({albumId}, props) => {
         setPictures([...pictures, picture]);
         const image = await uploadImageToBackend(picture[0]);
         await addToAlbum(albumId, image.url);
+        window.location.reload(false); //Reload the page, I know, super dirty
     };
     return (
         <ImageUploader
