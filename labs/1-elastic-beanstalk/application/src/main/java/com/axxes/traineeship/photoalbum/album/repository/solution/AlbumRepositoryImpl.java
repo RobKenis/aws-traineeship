@@ -43,4 +43,10 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                 .map(item -> new Album(item.getString("id"), item.getString("name")))
                 .collect(toList());
     }
+
+    @Override
+    public Optional<Album> get(String id) {
+        return Optional.ofNullable(albumsTable.getItem("id", id))
+                .map(item -> new Album(item.getString("id"), item.getString("name")));
+    }
 }

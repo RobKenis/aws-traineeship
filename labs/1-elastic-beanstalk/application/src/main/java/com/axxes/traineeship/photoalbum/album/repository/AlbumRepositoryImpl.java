@@ -20,4 +20,10 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         //TODO: Lab 3 - DynamoDB
         return Collections.emptyList();
     }
+
+    @Override
+    public Optional<Album> get(String id) {
+        //TODO: Lab 3 - DynamoDB
+        return Optional.empty();
+    }
 }

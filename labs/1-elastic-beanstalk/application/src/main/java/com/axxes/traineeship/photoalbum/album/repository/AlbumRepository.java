@@ -11,4 +11,6 @@ public interface AlbumRepository {
 
     List<Album> getAll();
 
+    Optional<Album> get(String id);
+
 }
