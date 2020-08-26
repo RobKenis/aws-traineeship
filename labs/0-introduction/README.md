@@ -16,3 +16,7 @@ Click `Command line or programmatic access`
 ```bash
 $ aws sts get-caller-identity
 ```
+
+### Dealing with errors
+These credentials expire after 1 hour. I know, very annoying, but I don't have the power to fix that.
+If everything suddenly stops working, retrieve new credentials and update your local AWS config.

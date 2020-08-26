@@ -31,7 +31,7 @@ Click `Upload and deploy`, this will open the following window.
 
 ![Upload zip to beanstalk](../../assets/deploy_beanstalk_1.png)
 
-Upload your *zip* file and enter a version label, so it looks like the following picture.
+Upload your **zip** file and enter a version label, so it looks like the following picture.
 
 ![Upload zip to beanstalk](../../assets/deploy_beanstalk_2.png)
 
