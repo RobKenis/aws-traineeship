@@ -1,0 +1,31 @@
+---
+Description: Static website
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  CloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: True
+        HttpVersion: http2
+        PriceClass: PriceClass_100
+        Comment: !Ref AWS::StackName
+        Origins:
+          - Id: default
+            DomainName: !Sub '${S3Bucket}.s3-website-${AWS::Region}.amazonaws.com'
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+        DefaultCacheBehavior:
+          TargetOriginId: default
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: False
+          MinTTL: 60
+          DefaultTTL: 300
+          MaxTTL: 300
