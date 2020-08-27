@@ -1,0 +1,31 @@
+---
+Description: API that returns how many albums and images we have
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  CountAlbums:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs12.x
+      CodeUri: 's3://elasticbeanstalk-eu-west-1-040506089782/lambda.zip'
+      Policies: AmazonDynamoDBFullAccess #Not very secure, can use some restrictions
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            Path: '/count/albums'
+            Method: get
+  CountImages:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs12.x
+      CodeUri: 's3://elasticbeanstalk-eu-west-1-040506089782/lambda.zip'
+      Policies: AmazonDynamoDBFullAccess #Not very secure, can use some restrictions
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            Path: '/count/images'
+            Method: get
