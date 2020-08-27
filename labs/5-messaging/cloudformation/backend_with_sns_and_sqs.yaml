@@ -68,6 +68,12 @@ Resources:
                   - 'sns:Publish'
                 Effect: Allow
                 Resource: '*'
+              - Sid: SqsAccess
+                Action:
+                  - 'sqs:ReceiveMessage'
+                  - 'sqs:DeleteMessage'
+                Effect: Allow
+                Resource: '*'
   DevEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
@@ -143,3 +149,18 @@ Resources:
       QueueName: !Join [ '-', [ !Ref Application, 'share', 'dev' ] ]
   ShareTopic:
     Type: AWS::SNS::Topic
+  ShareQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Id: ShareQueuePolicy
+        Statement:
+          - Sid: Allow-SNS-SendMessage
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - sqs:SendMessage
+            Resource: !GetAtt ShareQueue.Arn
+      Queues:
+        - !Ref ShareQueue
