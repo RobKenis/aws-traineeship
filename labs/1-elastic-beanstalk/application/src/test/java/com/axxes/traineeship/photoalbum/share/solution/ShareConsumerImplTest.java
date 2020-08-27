@@ -3,6 +3,7 @@ package com.axxes.traineeship.photoalbum.share.solution;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.Message;
 import com.amazonaws.services.sqs.model.ReceiveMessageResult;
+import com.axxes.traineeship.photoalbum.album.service.ShareService;
 import com.axxes.traineeship.photoalbum.share.ShareConsumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ class ShareConsumerImplTest {
 
     @BeforeEach
     void setUp() {
-        consumer = new ShareConsumerImpl(sqs, "https://robkenis.com/", new ObjectMapper());
+        consumer = new ShareConsumerImpl(sqs, "https://robkenis.com/", new ObjectMapper(), mock(ShareService.class));
         when(sqs.receiveMessage("https://robkenis.com/"))
                 .thenReturn(new ReceiveMessageResult().withMessages(
                         new Message().withBody("{\n" +

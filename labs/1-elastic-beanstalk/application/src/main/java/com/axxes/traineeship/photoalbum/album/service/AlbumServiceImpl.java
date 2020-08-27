@@ -6,6 +6,8 @@ import com.axxes.traineeship.photoalbum.image.entity.AlbumImage;
 import com.axxes.traineeship.photoalbum.image.entity.Image;
 import com.axxes.traineeship.photoalbum.image.repository.ImageRepository;
 import com.axxes.traineeship.photoalbum.share.ShareListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,9 @@ import java.util.UUID;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class AlbumServiceImpl implements AlbumService {
+public class AlbumServiceImpl implements AlbumService, ShareService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AlbumServiceImpl.class);
 
     private final AlbumRepository albumRepository;
     private final ImageRepository imageRepository;
@@ -56,5 +60,20 @@ public class AlbumServiceImpl implements AlbumService {
         List<AlbumImage> albumImages = imageRepository.getAlbum(albumId);
         List<Image> images = albumImages.stream().map(ai -> new Image(ai.getImageUrl())).collect(toList());
         return album.map(a -> new Album(a.getId(), a.getName(), images));
+    }
+
+    @Override
+    public void addToShared(String imageUrl) {
+        // This is a horrible way to query on "name" by the way.
+        // A  proper solution is to add a secondary index to query on name
+        final Optional<Album> album = albumRepository.getAll().stream()
+                .filter(a -> a.getName().equals("shared"))
+                .findAny();
+        if (album.isPresent()){
+            //Don't send a new notification to the listener
+            imageRepository.save(new AlbumImage(album.get().getId(), imageUrl));
+        } else {
+            LOGGER.warn("No shared album found.");
+        }
     }
 }

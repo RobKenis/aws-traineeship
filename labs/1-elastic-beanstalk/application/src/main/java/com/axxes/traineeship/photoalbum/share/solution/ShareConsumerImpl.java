@@ -4,6 +4,8 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.ReceiveMessageResult;
+import com.axxes.traineeship.photoalbum.album.service.ShareService;
+import com.axxes.traineeship.photoalbum.image.entity.AlbumImage;
 import com.axxes.traineeship.photoalbum.share.ShareConsumer;
 import com.axxes.traineeship.photoalbum.share.entity.ShareMessage;
 import com.axxes.traineeship.photoalbum.share.entity.SqsMessage;
@@ -24,16 +26,18 @@ public class ShareConsumerImpl implements ShareConsumer {
     private final AmazonSQS sqs;
     private final String queueUrl;
     private final ObjectMapper objectMapper;
+    private final ShareService shareService;
 
     @Autowired
-    public ShareConsumerImpl(@Value("${images.share.queue}") String queueUrl, ObjectMapper objectMapper) {
-        this(AmazonSQSClientBuilder.standard().withRegion(Regions.EU_WEST_1).build(), queueUrl, objectMapper);
+    public ShareConsumerImpl(@Value("${images.share.queue}") String queueUrl, ObjectMapper objectMapper, ShareService shareService) {
+        this(AmazonSQSClientBuilder.standard().withRegion(Regions.EU_WEST_1).build(), queueUrl, objectMapper, shareService);
     }
 
-    public ShareConsumerImpl(AmazonSQS sqs, String queueUrl, ObjectMapper objectMapper) {
+    public ShareConsumerImpl(AmazonSQS sqs, String queueUrl, ObjectMapper objectMapper, ShareService shareService) {
         this.sqs = sqs;
         this.queueUrl = queueUrl;
         this.objectMapper = objectMapper;
+        this.shareService = shareService;
     }
 
     @Override
@@ -49,7 +53,7 @@ public class ShareConsumerImpl implements ShareConsumer {
     }
 
     private String handle(ShareMessage message, String messageId) {
-        LOGGER.info("Received {} with id [{}]", message, messageId);
+        shareService.addToShared(message.getImageUrl());
         return messageId;
     }
 
