@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 
-@Service
+//@Service
 public class S3StorageService implements ImageStorageService {
 
     private final AmazonS3 s3;

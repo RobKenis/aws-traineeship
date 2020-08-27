@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ShareListenerImpl implements ShareListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShareListenerImpl.class);

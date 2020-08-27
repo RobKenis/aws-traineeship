@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class ImageRepositoryImpl implements ImageRepository {
 
     private final Table imagesTable;

@@ -2,7 +2,7 @@ package com.axxes.traineeship.photoalbum.share;
 
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class ShareConsumerImpl implements ShareConsumer {
 
     @Override

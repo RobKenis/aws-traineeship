@@ -1,12 +1,13 @@
 package com.axxes.traineeship.photoalbum.album.repository;
 
 import com.axxes.traineeship.photoalbum.album.entity.Album;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-//@Component
+@Component
 public class AlbumRepositoryImpl implements AlbumRepository {
 
     @Override
