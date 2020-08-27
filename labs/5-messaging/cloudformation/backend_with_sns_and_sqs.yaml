@@ -63,6 +63,11 @@ Resources:
                   - 'dynamodb:Scan'
                 Effect: Allow
                 Resource: '*'
+              - Sid: SnsAccess
+                Action:
+                  - 'sns:Publish'
+                Effect: Allow
+                Resource: '*'
   DevEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:

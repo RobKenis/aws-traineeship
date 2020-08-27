@@ -5,6 +5,7 @@ import com.axxes.traineeship.photoalbum.album.repository.AlbumRepository;
 import com.axxes.traineeship.photoalbum.image.entity.AlbumImage;
 import com.axxes.traineeship.photoalbum.image.entity.Image;
 import com.axxes.traineeship.photoalbum.image.repository.ImageRepository;
+import com.axxes.traineeship.photoalbum.share.ShareListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,13 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository albumRepository;
     private final ImageRepository imageRepository;
+    private final ShareListener shareListener; // This is for lab 5, don't worry about it yet.
 
     @Autowired
-    public AlbumServiceImpl(AlbumRepository albumRepository, ImageRepository imageRepository) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, ImageRepository imageRepository, ShareListener shareListener) {
         this.albumRepository = albumRepository;
         this.imageRepository = imageRepository;
+        this.shareListener = shareListener;
     }
 
     @Override
@@ -42,7 +45,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Optional<Album> uploadImage(String albumId, Image image) {
-        imageRepository.save(new AlbumImage(albumId, image.getUrl()));
+        final Optional<AlbumImage> albumImage = imageRepository.save(new AlbumImage(albumId, image.getUrl()));
+        albumImage.ifPresent(shareListener::imageAdded);
         return get(albumId);
     }
 

@@ -25,4 +25,13 @@ public class AlbumImage {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "AlbumImage{" +
+                "albumId='" + albumId + '\'' +
+                ", uploadedAt=" + uploadedAt +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }
