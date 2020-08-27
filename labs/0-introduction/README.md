@@ -1,4 +1,5 @@
 # Introduction
+If you missed anything, have a look at the [slides](https://slides.robkenis.com)
 
 ## AWS CLI
 ### Installing the CLI
