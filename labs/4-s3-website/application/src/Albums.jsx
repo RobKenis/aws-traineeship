@@ -6,7 +6,7 @@ const Album = ({id, name, images, refresh}) => (<div key={id} className={"album"
     <h2>{name}</h2>
     <div className={"images"}>
         {images.map((img, index) => (
-            <img key={index} src={img.url} alt={"No idea what it is about"} width="400"/>))}
+            <img key={index} src={img.url} alt={"No idea what it is about"} width="400" style={{objectFit: "contain"}}/>))}
     </div>
     <UploadImage albumId={id}/>
 </div>)
