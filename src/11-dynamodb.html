@@ -1,3 +1,30 @@
 <section>
     <h3>DynamoDB</h3>
+
+    <section>
+        <p class="fragment">NoSQL database</p>
+        <p class="fragment">Key-Value store</p>
+        <p class="fragment">Serverless</p>
+    </section>
+
+    <section>
+        <pre><code data-trim data-noescape>
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "dynamodb:Put*",
+                    "dynamodb:Get*",
+                    "dynamodb:Query",
+                    "dynamodb:Scan"
+                ],
+                "Resource": "*",
+                "Effect": "Allow",
+                "Sid": "DynamodbAccess"
+            }
+        ]
+    }
+        </code></pre>
+    </section>
 </section>

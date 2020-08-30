@@ -1,3 +1,20 @@
 <section>
     <h3>Lambda</h3>
+
+    <section>
+        <p>Serverless Compute</p>
+        <p class="fragment">Runs only when triggered</p>
+        <p class="fragment">SQS - API Gateway</p>
+    </section>
+
+    <section>
+        <pre><code data-trim data-noescape>
+           exports.handler = async function(event, context) {
+              return {
+                statusCode: 200,
+                body: JSON.stringify({ message: 'Hello world!' }),
+              }
+            }
+        </code></pre>
+    </section>
 </section>
