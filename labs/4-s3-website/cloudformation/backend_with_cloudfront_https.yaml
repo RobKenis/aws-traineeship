@@ -129,6 +129,14 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
           ForwardedValues:
             QueryString: True
-          MinTTL: 60
-          DefaultTTL: 300
-          MaxTTL: 300
+          MinTTL: 0
+          DefaultTTL: 0
+          MaxTTL: 0
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+            - PUT
+            - PATCH
+            - POST
+            - DELETE
