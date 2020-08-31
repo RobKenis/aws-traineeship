@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.util.Optional;
 
-@Service
+//@Service
 public class S3StorageService implements ImageStorageService {
 
     @Override

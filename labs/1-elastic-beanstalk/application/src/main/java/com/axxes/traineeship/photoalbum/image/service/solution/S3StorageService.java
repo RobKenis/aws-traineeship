@@ -1,5 +1,7 @@
 package com.axxes.traineeship.photoalbum.image.service.solution;
 
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -15,7 +17,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 
-//@Service
+@Service
 public class S3StorageService implements ImageStorageService {
 
     private final AmazonS3 s3;

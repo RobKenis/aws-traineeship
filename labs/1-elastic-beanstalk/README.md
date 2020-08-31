@@ -39,5 +39,5 @@ Click `Deploy` and wait a second. This takes a while because it needs to upload 
 amount of time, but don't worry.
 
 ## Testing your application
-Go back to the URL you clicked previously that should "Congratulations". When you add `/actuator/heatlh`, it should show 
+Go back to the URL you clicked previously that should "Congratulations". When you add `/actuator/health`, it should show 
 the well-know response from Spring Actuator.
