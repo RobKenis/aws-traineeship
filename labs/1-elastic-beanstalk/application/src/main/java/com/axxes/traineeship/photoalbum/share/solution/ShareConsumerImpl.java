@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class ShareConsumerImpl implements ShareConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShareConsumerImpl.class);

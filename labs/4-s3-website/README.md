@@ -13,7 +13,13 @@ Change `REACT_APP_BACKEND_URL` in `.env` to you **CloudFront** URL. The URL from
 but not on the deployed version (because mixed content).
 
 ```bash
+$ yarn install
 $ yarn build
+```
+
+```bash
+$ npm install
+$ npm run build
 ```
 > If you want to use npm, go ahead, it shouldn't break anything.
 
