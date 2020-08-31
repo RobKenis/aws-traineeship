@@ -6,6 +6,7 @@ import com.axxes.traineeship.photoalbum.image.entity.AlbumImage;
 import com.axxes.traineeship.photoalbum.image.entity.Image;
 import com.axxes.traineeship.photoalbum.image.repository.ImageRepository;
 import com.axxes.traineeship.photoalbum.share.ShareListener;
+import com.axxes.traineeship.photoalbum.tags.TagsListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,14 @@ public class AlbumServiceImpl implements AlbumService, ShareService {
     private final AlbumRepository albumRepository;
     private final ImageRepository imageRepository;
     private final ShareListener shareListener; // This is for lab 5, don't worry about it yet.
+    private final TagsListener tagsListener;
 
     @Autowired
-    public AlbumServiceImpl(AlbumRepository albumRepository, ImageRepository imageRepository, ShareListener shareListener) {
+    public AlbumServiceImpl(AlbumRepository albumRepository, ImageRepository imageRepository, ShareListener shareListener, TagsListener tagsListener) {
         this.albumRepository = albumRepository;
         this.imageRepository = imageRepository;
         this.shareListener = shareListener;
+        this.tagsListener = tagsListener;
     }
 
     @Override
@@ -51,6 +54,7 @@ public class AlbumServiceImpl implements AlbumService, ShareService {
     public Optional<Album> uploadImage(String albumId, Image image) {
         final Optional<AlbumImage> albumImage = imageRepository.save(new AlbumImage(albumId, image.getUrl()));
         albumImage.ifPresent(shareListener::imageAdded);
+        albumImage.ifPresent(tagsListener::imageUploaded);
         return get(albumId);
     }
 
@@ -58,7 +62,7 @@ public class AlbumServiceImpl implements AlbumService, ShareService {
     public Optional<Album> get(String albumId) {
         Optional<Album> album = albumRepository.get(albumId);
         List<AlbumImage> albumImages = imageRepository.getAlbum(albumId);
-        List<Image> images = albumImages.stream().map(ai -> new Image(ai.getImageUrl())).collect(toList());
+        List<Image> images = albumImages.stream().map(ai -> new Image(ai.getImageUrl(), ai.getTags())).collect(toList());
         return album.map(a -> new Album(a.getId(), a.getName(), images));
     }
 

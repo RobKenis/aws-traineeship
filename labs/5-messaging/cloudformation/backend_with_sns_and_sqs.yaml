@@ -74,6 +74,11 @@ Resources:
                   - 'sqs:DeleteMessage'
                 Effect: Allow
                 Resource: '*'
+              - Sid: RekognitionAccess
+                Action:
+                  - 'rekognition:*'
+                Effect: Allow
+                Resource: '*'
   DevEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
