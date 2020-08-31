@@ -6,7 +6,12 @@ const Album = ({id, name, images, refresh}) => (<div key={id} className={"album"
     <h2>{name}</h2>
     <div className={"images"}>
         {images.map((img, index) => (
-            <img key={index} src={img.url} alt={"No idea what it is about"} width="400" style={{objectFit: "contain"}}/>))}
+            <figure>
+                <img key={index} src={img.url} alt={"No idea what it is about"} width="400"
+                     style={{objectFit: "contain"}}/>
+                <figcaption>{img.tags.join(' - ')}</figcaption>
+            </figure>
+        ))}
     </div>
     <UploadImage albumId={id}/>
 </div>)
@@ -22,7 +27,7 @@ export const Albums = () => {
         getAlbums();
     }, [])
     return (<div className={"albums"}>{albums.map(album => (
-        <Album key={album.id} id={album.id} name={album.name} images={album.images} />))}</div>);
+        <Album key={album.id} id={album.id} name={album.name} images={album.images}/>))}</div>);
 }
 
 const UploadImage = ({albumId}, props) => {
@@ -55,7 +60,7 @@ const uploadImageToBackend = async (picture) => {
             'content-type': 'multipart/form-data'
         }
     }
-    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/image/_upload`, formData, config);
+    const {data} = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/image/_upload`, formData, config);
     return data;
 }
 
