@@ -18,5 +18,8 @@
   "scripts": {
     "start": "gulp",
     "build": "gulp build"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   }
 }
