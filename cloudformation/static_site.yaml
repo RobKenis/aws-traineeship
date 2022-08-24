@@ -59,3 +59,18 @@ Resources:
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt CloudFront.DomainName
+  GitHubUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref AWS::StackName
+      Policies:
+        - PolicyName: 'upload-to-s3'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:Put*'
+                  - 's3:List*'
+                  - 's3:Get*'
+                Resource: '*'
