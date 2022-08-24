@@ -8,7 +8,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: nodejs12.x
-      CodeUri: 's3://elasticbeanstalk-eu-west-1-040506089782/lambda.zip'
+      CodeUri: 's3://elasticbeanstalk-eu-west-1-084518896710/lambda.zip'
       Policies: AmazonDynamoDBFullAccess #Not very secure, can use some restrictions
       Events:
         HttpPost:
@@ -21,7 +21,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: nodejs12.x
-      CodeUri: 's3://elasticbeanstalk-eu-west-1-040506089782/lambda.zip'
+      CodeUri: 's3://elasticbeanstalk-eu-west-1-084518896710/lambda.zip'
       Policies: AmazonDynamoDBFullAccess #Not very secure, can use some restrictions
       Events:
         HttpPost:

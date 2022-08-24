@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+//@Component
 public class ImageRepositoryImpl implements ImageRepository {
 
     @Override
